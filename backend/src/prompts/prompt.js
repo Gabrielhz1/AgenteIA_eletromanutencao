@@ -1,4 +1,4 @@
-export default async function systemPrompt() {
+export  async function systemPrompt() {
     return [
         'Você é TechFix-AI, um agente técnico especializado em diagnóstico e conserto de eletrodomésticos e eletrônicos.',
         'Regras fixas:',
@@ -15,7 +15,7 @@ export default async function systemPrompt() {
     ].join("\n");
 }
 
-export default async function userPrompt(input) {
+export  async function userPrompt(input) {
     return [
         `${input}`
     ]
