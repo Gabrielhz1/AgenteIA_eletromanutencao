@@ -3,13 +3,11 @@ import { systemPrompt, userPrompt } from '../prompts/prompt.js'
 import dotenv from 'dotenv';
 dotenv.config();
 
-
 const genAI = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
 });
 
 export async function generateTechtips(input) {
-   
 
     const system = systemPrompt();
     const user = userPrompt(input)
@@ -26,10 +24,7 @@ export async function generateTechtips(input) {
         // console.log(response)
     console.log(response.text)
 
-
     return response.text;
-
-
 
 
 }
