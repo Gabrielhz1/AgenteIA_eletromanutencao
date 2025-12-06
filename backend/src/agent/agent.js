@@ -7,24 +7,34 @@ const genAI = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
 });
 
-export async function generateTechtips(input) {
+export async function generateTechtips(input, onChunk) {
 
     const system = systemPrompt();
     const user = userPrompt(input)
 
-    const response = await genAI.models.generateContent({
+    const response = await genAI.models.generateContentStream({
         model: "gemini-2.5-flash",
-
-      
+        config: {
+            systemInstruction: `${await system}`,
+            temperature: 0.5,
+        },
         contents:
-            `SISTEMA:${await system}
-             USUÁRIO:${ await user}`,
+            `
+             USUÁRIO:${await user}`,
     });
 
-        // console.log(response)
-    console.log(response.text)
+    let completResponse = ""
 
-    return response.text;
+    for await (const chunk of response) {
+        const text = chunk.text || "";
+        completResponse += text
+
+        onChunk(text)
+    }
+
+    
+    console.log(completResponse)
+    return completResponse;
 
 
 }

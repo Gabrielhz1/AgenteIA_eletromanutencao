@@ -2,4 +2,3 @@ node_modules
 .env
 .env.local
 .env.prod
-GEMINI_API_KEY

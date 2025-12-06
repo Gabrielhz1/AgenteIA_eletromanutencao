@@ -4,23 +4,34 @@ import { generateTechtips } from '../agent/agent.js'
 export async function askQuestion(req, res) {
 
 
-   const { pergunta } = req.body;
-   if (!pergunta) {
-      return res.status(400).json({
-         error: "ValidationError",
-      })
-   }
+
 
    try {
+      const { pergunta } = req.body;
+      if (!pergunta) {
+         return res.status(400).json({
+            error: "ValidationError",
+         })
+      }
+      res.setHeader("Content-Type", "text/event-stream");
+      res.setHeader("Cache-Control", "no-cache");
+      res.setHeader("Connection", "keep-alive");
+      res.flushHeaders();
 
-      const data = await generateTechtips(pergunta)
-      return res.status(200).json(data)
+      
 
+      const data = await generateTechtips(pergunta, (chunk)=>{
+         res.write(`data: ${chunk}\n`)
+      });
+
+      res.end();
+
+      
+      
+   
    } catch (err) {
-      return res.status(500).json({
-         error: "InternalServerError",
-         message: "Erro ao processar a sua pergunta"
-      })
+      console.error("Error Stream:", err)
+      res.end();
 
    }
 
