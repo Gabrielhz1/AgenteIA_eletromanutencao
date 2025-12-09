@@ -1,67 +1,86 @@
-// "use client";
-// import { useState } from "react";
+"use client";
+import { useState } from "react";
 
-// export default function Home() {
-//   const [mensagem, setMensagem] = useState("");
-//   const [resposta, setResposta] = useState("");
-//   const [carregando, setCarregando] = useState(false);
+export default function Home() {
+  const [mensagem, setMensagem] = useState("");
+  const [resposta, setResposta] = useState("");
+  const [carregando, setCarregando] = useState(false);
 
-//   async function enviarMensagem() {
-//     if (!mensagem) return;
+  async function enviarMensagem() {
+    if (!mensagem) return;
 
-//     setResposta("");
-//     setCarregando(true);
+    setResposta("");
+    setCarregando(true);
 
-//     const response = await fetch("http://localhost:3000/api/ask", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ pergunta: mensagem }),
-//     });
+    const response = await fetch("http://localhost:3000/api/ask", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ pergunta: mensagem }),
+    });
 
-//     const reader = response.body.getReader();
-//     const decoder = new TextDecoder();
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
 
-//     let textoFinal = "";
+    let textoFinal = "";
 
-//     while (true) {
-//       const { value, done } = await reader.read();
-//       if (done) break;
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
 
-//       const chunk = decoder.decode(value);
-//       textoFinal += chunk;
-//       setResposta((prev) => prev + chunk);
-//     }
+      const chunk = decoder.decode(value);
+      textoFinal += chunk;
+      setResposta((prev) => prev + chunk);
+    }
 
-//     setCarregando(false);
-//   }
+    setCarregando(false);
+  }
 
-//   return (
-//     <div className="min-h-screen bg-zinc-950 text-white flex flex-col items-center justify-center p-4">
-//       <div className="w-full max-w-xl bg-zinc-900 rounded-xl p-4 space-y-4">
-//         <h1 className="text-xl font-bold text-center">Chat com IA</h1>
+  return (
+    <div className="flex items-center min-h-screen justify-center bg-slate-50" >
+      <Card className="w-[500px] h-[700px] grid grid-rows-[min-content_1fr_min-content]">
+        <CardHeader >
+          <div className="flex justify-center py-2">
+            <CardTitle className="text-3xl font-bold text-center items-center">Tech<span className="text-orange-400">Fix</span></CardTitle>
+            <Image
+              src="/chatbot.png"
+              alt="robo"
+              width={40}
+              height={40}
+            />
+          </div>
+          <CardDescription className="text-base text-zinc-600 text-center py-4 ">
+            Pergunte ao <span className="font-bold">TechFix</span> dicas para manutenção do seu aparelho.
+          </CardDescription>
+        </CardHeader>
 
-//         <div className="min-h-[200px] bg-zinc-800 rounded p-3 text-sm whitespace-pre-wrap">
-//           {resposta || "A resposta aparecerá aqui..."}
-//         </div>
+        <CardContent className="space-y-3">
+          <div className="flex p-2 mb-3 gap-2 items-center">
+            <Avatar className="w-12 h-12" >
+              <AvatarFallback>GH</AvatarFallback>
+              <AvatarImage src="https://github.com/gabrielhz1.png" />
+            </Avatar>
+            <p>Qual a sua opinição sobre javascript</p>
+          </div>
 
-//         <textarea
-//           className="w-full p-2 rounded bg-zinc-800 text-white resize-none"
-//           rows={3}
-//           placeholder="Digite sua pergunta..."
-//           value={mensagem}
-//           onChange={(e) => setMensagem(e.target.value)}
-//         />
+          <div className="flex p-2 mb-3 gap-2 items-center">
+            <Avatar className="w-12 h-12" >
+              <AvatarFallback>GH</AvatarFallback>
+              <AvatarImage src="https://avatars.githubusercontent.com/u/161781182?s=200&v=4" />
+            </Avatar>
+            <p>O javascript é uma linguagem de programação</p>
+          </div>
 
-//         <button
-//           onClick={enviarMensagem}
-//           disabled={carregando}
-//           className="w-full bg-blue-600 hover:bg-blue-700 transition p-2 rounded disabled:opacity-50"
-//         >
-//           {carregando ? "Respondendo..." : "Enviar"}
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
+
+
+        </CardContent>
+
+        <CardFooter className="flex gap-2">
+          <Input placeholder="Digite a sua pergunta..."/>
+          <Button type="submit" className="cursor-pointer">Enviar</Button>
+        </CardFooter>
+
+      </Card>
+  )
+}

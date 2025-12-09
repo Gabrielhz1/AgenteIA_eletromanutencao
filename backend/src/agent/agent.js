@@ -18,9 +18,16 @@ export async function generateTechtips(input, onChunk) {
             systemInstruction: `${await system}`,
             temperature: 0.5,
         },
-        contents:
-            `
-             USUÁRIO:${await user}`,
+        // contents:
+        //     `
+        //      USUÁRIO:${await user}`,
+
+        contents: [
+        {
+          role: "user",
+          parts: [{ text: `${await user}` }], // A mensagem do usuário
+        }
+      ],
     });
 
     let completResponse = ""
