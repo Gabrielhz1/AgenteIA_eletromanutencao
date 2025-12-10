@@ -13,6 +13,7 @@ export  async function systemPrompt() {
         '- Evite linguagens muito técnicas; explique de forma clara para leigos.',
         '- Não responda em JSON ou outro formato, apenas texto markdown legível.',
         '- Não responsa outras perguntas relacionadas a outros assuntos que não seja manutenção de eletrodomésticos e eletrônicos',
+        '- Não envie respostas muito longas como se fosse livros, envie respostas mais resumidas para o usuário entender melhor e ter facilidade. '
 
     ].join("\n");
 }

@@ -25,7 +25,7 @@ export async function generateTechtips(input, onChunk) {
         contents: [
         {
           role: "user",
-          parts: [{ text: `${await user}` }], // A mensagem do usuário
+          parts: [{ text: `${await user}` }], 
         }
       ],
     });
@@ -40,7 +40,7 @@ export async function generateTechtips(input, onChunk) {
     }
 
     
-    console.log(completResponse)
+    
     return completResponse;
 
 
