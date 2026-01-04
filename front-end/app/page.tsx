@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Apphead from "./headerApp";
+
 
 type Mensagem = {
   role: "user" | "assistant";
@@ -56,7 +58,13 @@ export default function Home() {
   }
 
   return (
-    <div className="flex items-center min-h-screen justify-center bg-slate-100">
+    
+    <div className="flex flex-col items-center min-h-screen justify-center bg-slate-100 ">
+      
+      <Apphead/>
+
+    <div className="py-6">
+      
       <Card className="w-[500px] grid grid-rows-[min-content_1fr_min-content] shadow-xl">
         <CardHeader>
           <div className="flex justify-center py-2 gap-2 items-center">
@@ -131,6 +139,7 @@ export default function Home() {
           </Button>
         </CardFooter>
       </Card>
+    </div>
     </div>
   );
 }
